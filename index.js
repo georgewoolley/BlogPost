@@ -2,7 +2,7 @@ import express from "express";
 import bodyParser from "body-parser";
 
 const app = express();
-const port = 3010;
+const port = 3015;
 var postName = "";
 var postDescription = ""; 
 const postData = []; 
@@ -39,14 +39,17 @@ app.post("/submit", (req, res) => {
     postName = req.body.pName;
     postDescription = req.body.pDescription;
 
+    const currentDate = new Date();
+    const formattedDateTime = currentDate.toLocaleString();
+
   const data = {
     title: 'Enter your name...',
     message: 'Hello, World!',
     
   };
   
-  postData.push({ title: postName, description: postDescription });
-  console.log("The array is " + postData);
+  postData.push({ title: postName, description: postDescription, dateTime: formattedDateTime });
+ // console.log("The array is " + postData);
 
 
  // let title = '';  // Declare 'title' using 'let'
