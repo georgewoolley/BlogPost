@@ -2,7 +2,7 @@ import express from "express";
 import bodyParser from "body-parser";
 
 const app = express();
-const port = 3015;
+const port = 3026;
 var postName = "";
 var postDescription = ""; 
 const postData = []; 
@@ -12,13 +12,9 @@ app.use(express.static('public'));
 
 app.get("/", (req, res) => {
 
-  const data = {
-    title: 'Create a blog post',
-    message: 'Hello, World!',
-    
-  };
+ 
 
-   res.render("index.ejs", data);
+   res.render("index.ejs");
 });
 
 app.get("/blogs", (req, res) => {
@@ -28,6 +24,25 @@ app.get("/blogs", (req, res) => {
       };
   
      res.render("blogs.ejs", data);
+  });
+
+
+// Update the edit route in your Express app
+app.get("/edit/:blogId", (req, res) => {
+    const blogId = req.params.blogId;
+    const blogToEdit = postData.find(blog => blog.blogId == blogId);
+  
+    if (!blogToEdit) {
+      // Handle the case where the blog post with the specified ID is not found
+      return res.status(404).send("Blog post not found");
+    }
+  
+    res.render("edit.ejs", { blog: blogToEdit });
+  });
+
+  app.get("/edit", (req, res) => {
+    // Render edit page without a specific blogId (you can customize this based on your requirements)
+    res.render("edit.ejs");
   });
 
 
@@ -41,6 +56,7 @@ app.post("/submit", (req, res) => {
 
     const currentDate = new Date();
     const formattedDateTime = currentDate.toLocaleString();
+    const blogId = Math.floor(Math.random() * 1000);
 
   const data = {
     title: 'Enter your name...',
@@ -48,7 +64,13 @@ app.post("/submit", (req, res) => {
     
   };
   
-  postData.push({ title: postName, description: postDescription, dateTime: formattedDateTime });
+  postData.push({
+    blogId: Math.floor(Math.random() * 1000),
+    title: postName,
+    description: postDescription,
+    dateTime: formattedDateTime
+  });
+  
  // console.log("The array is " + postData);
 
 
@@ -67,6 +89,28 @@ app.post("/submit", (req, res) => {
 
 
 });
+
+app.post("/update", (req, res) => {
+    const blogId = req.body.blogId;
+    const updatedTitle = req.body.title;
+    const updatedDescription = req.body.description;
+
+    // Find the corresponding blog post using the blog ID
+    const blogToUpdate = postData.find(blog => blog.blogId == blogId);
+
+    if (!blogToUpdate) {
+        return res.status(404).send("Blog post not found");
+    }
+
+    // Update the title and description
+    blogToUpdate.title = updatedTitle;
+    blogToUpdate.description = updatedDescription;
+
+    // Redirect to the page displaying the updated blog post or another appropriate page
+    res.redirect("/blogs");
+});
+
+
 
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
