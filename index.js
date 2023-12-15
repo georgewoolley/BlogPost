@@ -2,7 +2,7 @@ import express from "express";
 import bodyParser from "body-parser";
 
 const app = express();
-const port = 3026;
+const port = 3027;
 var postName = "";
 var postDescription = ""; 
 const postData = []; 
@@ -107,6 +107,23 @@ app.post("/update", (req, res) => {
     blogToUpdate.description = updatedDescription;
 
     // Redirect to the page displaying the updated blog post or another appropriate page
+    res.redirect("/blogs");
+});
+
+app.post("/delete/:blogId", (req, res) => {
+    const blogId = req.params.blogId;
+
+    // Find the index of the corresponding blog post using the blog ID
+    const blogIndex = postData.findIndex(blog => blog.blogId == blogId);
+
+    if (blogIndex === -1) {
+        return res.status(404).send("Blog post not found");
+    }
+
+    // Remove the blog post from the array
+    postData.splice(blogIndex, 1);
+
+    // Redirect to the blog listing page or another appropriate page
     res.redirect("/blogs");
 });
 
