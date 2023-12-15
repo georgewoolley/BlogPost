@@ -7,13 +7,12 @@
 </head>
 <body>
     
-<!-- blogs.ejs -->
+
 <% blogs.forEach(blog => { %>
     <h1><%= blog.title %></h1>
     <h4><%= blog.dateTime %></h4>
     <p><%= blog.description %></p>
-    <!-- Add delete and edit buttons -->
-    <form action="/delete/<%= blog.blogId %>" method="post">
+       <form action="/delete/<%= blog.blogId %>" method="post">
         <button type="submit">Delete</button>
     </form>
     <a href="/edit/<%= blog.blogId %>">Edit</a>

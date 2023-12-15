@@ -2,90 +2,77 @@ import express from "express";
 import bodyParser from "body-parser";
 
 const app = express();
-const port = 3027;
+const port = 3031;
 var postName = "";
-var postDescription = ""; 
-const postData = []; 
+var postDescription = "";
+const postData = [];
+var currentDate = new Date();
+var formattedDateTime = currentDate.toLocaleString();
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('public'));
 
 app.get("/", (req, res) => {
 
- 
 
-   res.render("index.ejs");
+
+    res.render("index.ejs");
 });
 
 app.get("/blogs", (req, res) => {
 
     const data = {
-        blogs: postData, 
-      };
-  
-     res.render("blogs.ejs", data);
-  });
+        blogs: postData,
+    };
+
+    res.render("blogs.ejs", data);
+});
 
 
-// Update the edit route in your Express app
 app.get("/edit/:blogId", (req, res) => {
     const blogId = req.params.blogId;
     const blogToEdit = postData.find(blog => blog.blogId == blogId);
-  
-    if (!blogToEdit) {
-      // Handle the case where the blog post with the specified ID is not found
-      return res.status(404).send("Blog post not found");
-    }
-  
-    res.render("edit.ejs", { blog: blogToEdit });
-  });
 
-  app.get("/edit", (req, res) => {
-    // Render edit page without a specific blogId (you can customize this based on your requirements)
+    if (!blogToEdit) {
+        // Blog ID not found
+        return res.status(404).send("Blog post not found");
+    }
+
+    res.render("edit.ejs", { blog: blogToEdit });
+});
+
+app.get("/edit", (req, res) => {
+
     res.render("edit.ejs");
-  });
+});
 
 
 
 
 app.post("/submit", (req, res) => {
-  console.log(req.body.pName);
-  console.log(req.body.pDescription);
+    console.log(req.body.pName);
+    console.log(req.body.pDescription);
     postName = req.body.pName;
     postDescription = req.body.pDescription;
 
-    const currentDate = new Date();
-    const formattedDateTime = currentDate.toLocaleString();
+    
     const blogId = Math.floor(Math.random() * 1000);
 
-  const data = {
-    title: 'Enter your name...',
-    message: 'Hello, World!',
-    
-  };
-  
-  postData.push({
-    blogId: Math.floor(Math.random() * 1000),
-    title: postName,
-    description: postDescription,
-    dateTime: formattedDateTime
-  });
-  
- // console.log("The array is " + postData);
+    const data = {
+        title: 'Enter your name...',
+        message: 'Hello, World!',
+
+    };
+
+    postData.push({
+        blogId: Math.floor(Math.random() * 1000),
+        title: postName,
+        description: postDescription,
+        dateTime: formattedDateTime
+    });
 
 
- // let title = '';  // Declare 'title' using 'let'
-
- // if (firstName != "" && lastName != "") {
- //   let totalChars = firstName.length + lastName.length;
-  //  title = "The total number of chars is: " + totalChars; 
- // }
-
-  // Pass 'title' to the template
- // data.title = title;
-
-
-   res.render("index.ejs", data);
+    res.render("index.ejs", data);
 
 
 });
@@ -102,11 +89,16 @@ app.post("/update", (req, res) => {
         return res.status(404).send("Blog post not found");
     }
 
+    var newDate = new Date();
+    var updatedDateTime = newDate.toLocaleString();
+
+
     // Update the title and description
     blogToUpdate.title = updatedTitle;
     blogToUpdate.description = updatedDescription;
+    blogToUpdate.dateTime = updatedDateTime;
 
-    // Redirect to the page displaying the updated blog post or another appropriate page
+    // Redirect to the page displaying the updated blog 
     res.redirect("/blogs");
 });
 
@@ -123,12 +115,12 @@ app.post("/delete/:blogId", (req, res) => {
     // Remove the blog post from the array
     postData.splice(blogIndex, 1);
 
-    // Redirect to the blog listing page or another appropriate page
+    // Redirect to the blog listing page 
     res.redirect("/blogs");
 });
 
 
 
 app.listen(port, () => {
-  console.log(`Server running on port ${port}`);
+    console.log(`Server running on port ${port}`);
 });
