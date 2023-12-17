@@ -12,13 +12,35 @@
 <body>
   <h1>Blog Posts</h1>
  
+
+
   <form action="/submit" method="POST">
-    <input type="text" name="pName" placeholder="Post Title">
-    <input type="text" name="pDescription" placeholder="Description">
-    <input type="submit" value="OK">
-  </form>
+    <div class="mb-3">
+        <label for="postTitle" class="form-label">Post Title</label>
+        <input type="text" class="form-control" id="postTitle" name="pName" placeholder="Post Title">
+    </div>
+
+    <div class="mb-3">
+        <label for="description" class="form-label">Description</label>
+        <textarea class="form-control" id="description" name="pDescription" placeholder="Description" rows="5"></textarea>
+
+    </div>
+
+    <button type="submit" class="btn btn-primary">OK</button>
+</form>
+
+
+
+
+
+
 
 </body>
+
+
+
+
+
 
 
 <h2>Recent Posts</h2>
