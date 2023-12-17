@@ -18,4 +18,23 @@
   </form>
 </body>
 
+
+<h2>Recent Posts</h2>
+
+<% if (locals.blog) { %>
+    <%  for (let i = 0; i < 5; i++) { %>
+        // Your code to be repeated 5 times
+    
+        <h1><%= blog[i].title %></h1>
+        <h4><%= blog[i].dateTime %></h4>
+        <p><%= blog[i].description %></p>
+    
+    
+        <%  } %>
+        <% } %>
+
+
+
+
+
 </html>

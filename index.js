@@ -2,7 +2,7 @@ import express from "express";
 import bodyParser from "body-parser";
 
 const app = express();
-const port = 3031;
+const port = 3035;
 var postName = "";
 var postDescription = "";
 const postData = [];
@@ -13,10 +13,12 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('public'));
 
 app.get("/", (req, res) => {
+    const data = {
+        blogs: postData,
+    };
 
 
-
-    res.render("index.ejs");
+    res.render("index.ejs", data);
 });
 
 app.get("/blogs", (req, res) => {
