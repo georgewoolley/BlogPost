@@ -21,3 +21,7 @@ p {
     font-family: 'Lato', sans-serif;
     font-family: 'Open Sans', sans-serif; 
 }
+
+#recent {
+    margin-top: 50px;
+}

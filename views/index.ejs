@@ -36,31 +36,22 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-<h3>Recent Posts</h2>
+<h3 id="recent">Recent Posts</h2>
 
     <% if (blogs.length > 0) { %>
-        <!-- Display blogs if the array is not empty -->
-        <ul>
-            <% blogs.forEach(blog => { %>
-                <li>
-                    <h2><%= blog.title %></h2>
-                    <p><%= blog.description %></p>
-                    <p><strong>Posted on:</strong> <%= blog.dateTime %></p>
-                </li>
-            <% }); %>
-        </ul>
+     
+
+        <% const numberOfRecentEntriesToShow = 3; %>
+        <% const startIndex = Math.max(blogs.length - numberOfRecentEntriesToShow, 0); %>
+        <% const recentBlogs = blogs.slice(startIndex); %>
+        
+        <% recentBlogs.forEach(blog => { %>
+            <h2><%= blog.title %></h2>
+            <p><%= blog.description %></p>
+            <p><strong>Posted on:</strong> <%= blog.dateTime %></p>
+        <% }); %>
+        
+        
     <% } else { %>
         <!-- Display a message if the array is empty -->
         <p>No blogs available.</p>
