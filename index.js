@@ -2,7 +2,7 @@ import express from "express";
 import bodyParser from "body-parser";
 
 const app = express();
-const port = 3063;
+const port = 3071;
 var postName = "";
 var postDescription = "";
 const postData = [];
@@ -57,15 +57,9 @@ app.post("/submit", (req, res) => {
     postName = req.body.pName;
     postDescription = req.body.pDescription;
 
-    
     const blogId = Math.floor(Math.random() * 1000);
 
-    const data = {
-        title: 'Enter your name...',
-        message: 'Hello, World!',
-
-    };
-
+    // Assuming postData is an array defined somewhere in your code
     postData.push({
         blogId: Math.floor(Math.random() * 1000),
         title: postName,
@@ -73,11 +67,10 @@ app.post("/submit", (req, res) => {
         dateTime: formattedDateTime
     });
 
-
-    res.render("index.ejs", data);
-
-
+    // Redirect to the home page ("/") after form submission
+    res.redirect("/");
 });
+
 
 app.post("/update", (req, res) => {
     const blogId = req.body.blogId;
