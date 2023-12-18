@@ -2,7 +2,7 @@ import express from "express";
 import bodyParser from "body-parser";
 
 const app = express();
-const port = 3075;
+const port = 4001;
 var postName = "";
 var postDescription = "";
 const postData = [];
