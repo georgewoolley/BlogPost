@@ -5,6 +5,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/main.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lato:wght@900&family=Open+Sans:wght@300;400&display=swap" rel="stylesheet">
+
   <title>Blogs</title>
 
 </head>
@@ -15,7 +20,7 @@
 
 
   <form action="/submit" method="POST">
-    <div class="mb-3">
+    <div class="mb-3 mt-10">
         <label for="postTitle" class="form-label">Post Title</label>
         <input type="text" class="form-control" id="postTitle" name="pName" placeholder="Post Title">
     </div>
@@ -26,7 +31,7 @@
 
     </div>
 
-    <button type="submit" class="btn btn-primary">OK</button>
+    <button type="submit" class="btn btn-dark">OK</button>
 </form>
 
 
@@ -43,7 +48,7 @@
 
 
 
-<h2>Recent Posts</h2>
+<h3>Recent Posts</h2>
 
 <% if (locals.blog) { %>
     <%  for (let i = 0; i < 5; i++) { %>
